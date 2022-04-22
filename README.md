@@ -9,13 +9,14 @@ A bFlowSensor inherits inherits APIs from:
 - [bThing](https://github.com/diy365-mgos/bthing)
 - [bSensor](https://github.com/diy365-mgos/bsensor)
 #### Remarks on: mgos_bthing_on_get_state()
-The [get-state handler](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state_handler_t) must set following keys: `flowRate` and  `totalFlow`. For more details see "Remarks on: mgos_bthing_get_state()" below.
+The [get-state handler](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state_handler_t) must set following keys: `MGOS_BFLOWSENS_STATE_FLOW_RATE`, `MGOS_BFLOWSENS_STATE_PARTIAL_FLOW` and `MGOS_BFLOWSENS_STATE_TOTAL_FLOW`. For more details see "Remarks on: mgos_bthing_get_state()" below.
 ```c
 static bool my_get_state_handler(mgos_bthing_t thing, mgos_bvar_t state, void *userdata) {
-  float flow_rate, total_flow;
-  // calculate flow_rate and total_flow...
-  mgos_bvar_set_key_decimal(state, "flowRate", flow_rate);
-  mgos_bvar_set_key_decimal(state, "totalFlow", total_flow);
+  float flow_rate, partial_flow, total_flow;
+  // calculate flow_rate, partial_flow and total_flow...
+  mgos_bvar_set_key_decimal(state, MGOS_BFLOWSENS_STATE_FLOW_RATE, flow_rate);
+  mgos_bvar_set_key_decimal(state, MGOS_BFLOWSENS_STATE_PARTIAL_FLOW, partial_flow);
+  mgos_bvar_set_key_decimal(state, MGOS_BFLOWSENS_STATE_TOTAL_FLOW, total_flow);
   return true;
 }
 mgos_bflowsens_t sens = mgos_bflowsens_create(...);
@@ -25,13 +26,15 @@ mgos_bthing_on_get_state(MGOS_BFLOWSENS_THINGCAST(sens), my_get_state_handler, N
 The [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state) returns a [bVariantDictionary](https://github.com/diy365-mgos/bvar-dic) having following keys:
 |Key|Type||
 |--|--|--|
-|flowRate|decimal|The current flow rate (e.g: L/min).|
-|totalFlow|decimal|The total flow measured since the last device power-on/reboot (e.g.: Liters).|
+|MGOS_BFLOWSENS_STATE_FLOW_RATE|decimal|The current flow rate (e.g: L/min).|
+|MGOS_BFLOWSENS_STATE_PARTIAL_FLOW|The partial flow measured since the last flow rate update (e.g.: Liters).|
+|MGOS_BFLOWSENS_STATE_TOTAL_FLOW|decimal|The total flow measured since the last device power-on/reboot (e.g.: Liters).|
 ```c
 mgos_bflowsens_t sens = mgos_bflowsens_create(...);
 mgos_bvarc_t state = mgos_bthing_get_state(MGOS_BFLOWSENS_THINGCAST(sens));
-float flow_rate = mgos_bvar_get_decimal(mgos_bvarc_get_key(state, "flowRate"));
-float total_flow = mgos_bvar_get_decimal(mgos_bvarc_get_key(state, "totalFlow"));
+float flow_rate = mgos_bvar_get_decimal(mgos_bvarc_get_key(state, MGOS_BFLOWSENS_STATE_FLOW_RATE));
+float partial_flow = mgos_bvar_get_decimal(mgos_bvarc_get_key(state, MGOS_BFLOWSENS_STATE_PARTIAL_FLOW));
+float total_flow = mgos_bvar_get_decimal(mgos_bvarc_get_key(state, MGOS_BFLOWSENS_STATE_TOTAL_FLOW));
 ```
 ## C/C++ APIs Reference
 ### MGOS_BFLOWSENS_TYPE
