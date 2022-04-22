@@ -14,7 +14,7 @@ struct mg_bthing_sens *MG_BFLOWSENS_CAST1(mgos_bflowsens_t thing) {
 enum mg_bthing_state_result mg_bflowsens_getting_state_cb(struct mg_bthing_sens *sens, mgos_bvar_t state, void *userdata) {
   enum mg_bthing_state_result res = MG_BTHING_STATE_RESULT_ERROR;
   if (sens && state) {
-    struct mg_bvalve_cfg *cfg = MG_BVALVE_CFG(sens);
+    struct mg_bflowsens_cfg *cfg = MG_BFLOWSENS_CFG(sens);
     res = cfg->overrides.getting_state_cb(sens, state, userdata);
     if (res != MG_BTHING_STATE_RESULT_ERROR) {
       if ((mgos_bvar_get_type(state) != MGOS_BVAR_TYPE_DIC) ||
