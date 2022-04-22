@@ -27,6 +27,10 @@
 extern "C" {
 #endif
 
+#define MGOS_BFLOWSENS_STATE_FLOW_RATE     "flowRate"
+#define MGOS_BFLOWSENS_STATE_PARTIAL_FLOW  "partialFlow"
+#define MGOS_BFLOWSENS_STATE_TOTAL_FLOW    "totalFlow"
+
 struct mg_bthing_sens;
 typedef struct mg_bthing_sens *mgos_bflowsens_t;
 
