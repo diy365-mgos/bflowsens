@@ -27,7 +27,7 @@ The [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_
 |Key|Type||
 |--|--|--|
 |MGOS_BFLOWSENS_STATE_FLOW_RATE|decimal|The current flow rate (e.g: L/min).|
-|MGOS_BFLOWSENS_STATE_PARTIAL_FLOW|The partial flow measured since the last flow rate update (e.g.: Liters).|
+|MGOS_BFLOWSENS_STATE_PARTIAL_FLOW|decimal|The partial flow measured since the last flow rate update (e.g.: Liters).|
 |MGOS_BFLOWSENS_STATE_TOTAL_FLOW|decimal|The total flow measured since the last device power-on/reboot (e.g.: Liters).|
 ```c
 mgos_bflowsens_t sens = mgos_bflowsens_create(...);
